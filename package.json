@@ -1,0 +1,29 @@
+{
+  "name": "passport_demo",
+  "version": "1.0.0",
+  "description": "Passport demo",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lfernandez55/passport_demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lfernandez55/passport_demo/issues"
+  },
+  "homepage": "https://github.com/lfernandez55/passport_demo#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
+  }
+}
