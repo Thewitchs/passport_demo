@@ -4,10 +4,22 @@
     <meta charset="utf-8" />
     <title>Passport Role Demo</title>
     <style>
-      body { font-family: system-ui, sans-serif; margin: 2rem; }
-      fieldset { max-width: 360px; }
-      pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
-      button { margin-right: .5rem; margin-top: .5rem; }
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 2rem;
+      }
+      fieldset {
+        max-width: 360px;
+      }
+      pre {
+        background: #f4f4f4;
+        padding: 1rem;
+        overflow: auto;
+      }
+      button {
+        margin-right: 0.5rem;
+        margin-top: 0.5rem;
+      }
     </style>
   </head>
   <body>
@@ -15,10 +27,18 @@
 
     <fieldset>
       <legend>Login</legend>
-      <p>Try <code>admin / adminpass</code> or <code>teacher / teacherpass</code></p>
+      <p>
+        Try <code>admin / adminpass</code> or
+        <code>teacher / teacherpass</code> or <code>student / studentpass</code>
+      </p>
       <form id="loginForm">
         <input name="username" placeholder="username" required />
-        <input name="password" type="password" placeholder="password" required />
+        <input
+          name="password"
+          type="password"
+          placeholder="password"
+          required
+        />
         <button type="submit">Log in</button>
       </form>
       <button id="logoutBtn">Log out</button>
@@ -31,6 +51,9 @@
     <button id="adminBtn">GET /admin/secret (admin only)</button>
     <button id="teacherBtn">GET /teacher/secret (teacher only)</button>
     <button id="staffBtn">GET /shared/for-staff (admin or teacher)</button>
+    <button id="studentBtn">
+      GET /shared/for-student (student or teacher)
+    </button>
 
     <h3>Output</h3>
     <pre id="out"></pre>
@@ -39,45 +62,77 @@
       const out = document.getElementById("out");
 
       function show(x) {
-        out.textContent = typeof x === "string" ? x : JSON.stringify(x, null, 2);
+        out.textContent =
+          typeof x === "string" ? x : JSON.stringify(x, null, 2);
       }
 
-      document.getElementById("loginForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const data = new URLSearchParams(new FormData(form));
-        try {
-          const res = await fetch("/login", { method: "POST", body: data, credentials: "same-origin" });
-          show(await res.json());
-        } catch (err) {
-          show(err.message);
-        }
-      });
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const data = new URLSearchParams(new FormData(form));
+          try {
+            const res = await fetch("/login", {
+              method: "POST",
+              body: data,
+              credentials: "same-origin",
+            });
+            show(await res.json());
+          } catch (err) {
+            show(err.message);
+          }
+        });
 
-      document.getElementById("logoutBtn").addEventListener("click", async () => {
-        const res = await fetch("/logout", { method: "POST", credentials: "same-origin" });
-        show(await res.json());
-      });
+      document
+        .getElementById("logoutBtn")
+        .addEventListener("click", async () => {
+          const res = await fetch("/logout", {
+            method: "POST",
+            credentials: "same-origin",
+          });
+          show(await res.json());
+        });
 
       document.getElementById("meBtn").addEventListener("click", async () => {
         const res = await fetch("/me", { credentials: "same-origin" });
         show(await res.json());
       });
 
-      document.getElementById("adminBtn").addEventListener("click", async () => {
-        const res = await fetch("/admin/secret", { credentials: "same-origin" });
-        show(await res.json());
-      });
+      document
+        .getElementById("adminBtn")
+        .addEventListener("click", async () => {
+          const res = await fetch("/admin/secret", {
+            credentials: "same-origin",
+          });
+          show(await res.json());
+        });
 
-      document.getElementById("teacherBtn").addEventListener("click", async () => {
-        const res = await fetch("/teacher/secret", { credentials: "same-origin" });
-        show(await res.json());
-      });
+      document
+        .getElementById("teacherBtn")
+        .addEventListener("click", async () => {
+          const res = await fetch("/teacher/secret", {
+            credentials: "same-origin",
+          });
+          show(await res.json());
+        });
 
-      document.getElementById("staffBtn").addEventListener("click", async () => {
-        const res = await fetch("/shared/for-staff", { credentials: "same-origin" });
-        show(await res.json());
-      });
+      document
+        .getElementById("staffBtn")
+        .addEventListener("click", async () => {
+          const res = await fetch("/shared/for-staff", {
+            credentials: "same-origin",
+          });
+          show(await res.json());
+        });
+      document
+        .getElementById("studentBtn")
+        .addEventListener("click", async () => {
+          const res = await fetch("/shared/for-student", {
+            credentials: "same-origin",
+          });
+          show(await res.json());
+        });
     </script>
   </body>
 </html>
